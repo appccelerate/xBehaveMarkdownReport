@@ -1,0 +1,372 @@
+﻿Appccelerate.StateMachine.Specs
+===============================
+
+Hierarchical State Machine Initialization
+-----------------------------------------
+
+### Initialization In Super State
+
+establish a hierarchical state machine  
+when initializing to a super state and starting the state machine  
+it should set current state of state machine to initial leaf state of the state to which it is initialized  
+it should execute entry action of super state to which state machine is initialized  
+it should execute entry actions of initial sub states until a leaf state is reached  
+
+### Initialization In Leaf State
+
+establish a hierarchical state machine  
+when initializing to a leaf state and starting the state machine  
+it should set current state of state machine to state to which it is initialized  
+it should execute entry action of state to which state machine is initialized  
+it should execute entry action of super states of the state to which state machine is initialized  
+
+Initialization
+--------------
+
+### Reinitialization
+
+establish an initialized state machine  
+when state machine is initialized again  
+should throw an invalid operation exception  
+
+### Start
+
+establish an initialized state machine  
+when starting the state machine  
+should set current state of state machine to state to which it is initialized  
+should execute entry action of state to which state machine is initialized  
+
+### Starting An Uninitialized State Machine
+
+establish an uninitialized state machine  
+when starting the state machine  
+should throw an invalid operation exception  
+
+### Initialize A Loaded State Machine
+
+establish a loaded state machine  
+when initializing the state machine  
+should throw an invalid operation exception  
+
+### Initialize
+
+establish a state machine  
+when state machine is initialized  
+should not yet execute any entry actions  
+
+Guards
+------
+
+### No Matching Guard
+
+establish state machine with no matching guard  
+when an event is fired  
+it should notify about declined transition  
+
+### Otherwise Guard
+
+establish a state machine with otherwise guard and no machting other guard  
+when an event is fired  
+it should take transition guarded with otherwise  
+
+### Matching Guard
+
+establish a state machine with guarded transitions  
+when an event is fired  
+it should take transition guarded with first matching guard  
+
+Reporting
+---------
+
+### Report
+
+establish a state machine  
+establish a state machine reporter  
+when creating a report  
+it should call the passed reporter  
+
+Entry Actions
+-------------
+
+### Event Argument
+
+establish a state machine with an entry action taking an event argument  
+when entering the state  
+it should pass event argument to entry action  
+
+### Multiple Entry Actions
+
+establish a state machine with several entry actions on a state  
+when entering the state  
+It should execute all entry actions  
+
+### Entry Action With Parameter
+
+establish a state machine with entry action with parameter on a state  
+when entering the state  
+it should execute the entry action  
+it should pass parameter to the entry action  
+
+### Entry Action
+
+establish a state machine with entry action on a state  
+when entering the state  
+it should execute the entry action  
+
+### Exception Handling
+
+establish a state machine with several entry actions on a state and some of them throw an exception  
+when entering the state  
+it should execute all entry actions on entry  
+it should handle all exceptions of all throwing entry actions by firing the TransitionExceptionThrown event  
+
+Start Stop
+----------
+
+### Stopping
+
+establish initialized state machine  
+establish started state machine  
+when stopping a state machine  
+when firing events onto the state machine  
+it should queue events  
+
+### Starting
+
+establish initialized state machine  
+establish some queued events  
+when starting  
+it should execute queued events  
+
+Hierarchical Transitions
+------------------------
+
+### No Common Ancestor
+
+establish a hierarchical state machine  
+when firing an event resulting in a transition without a common ancestor  
+it should execute exit action of source state  
+it should execute exit action of parents of source state (recursively)  
+it should execute entry action of parents of destination state (recursively)  
+it should execute entry action of destination state  
+it should execute actions from source upwards and then downwards to destination state  
+
+### Common Ancestor
+
+establish a hierarchical state machine  
+when firing an event resulting in a transition with a common ancestor  
+the state machine should remain inside common ancestor state  
+
+State Machine Extensions
+------------------------
+
+### Clearing Extensions
+
+establish a state machine with an extension  
+when clearing all extensions from the state machine  
+it should not anymore notify extension about internal events  
+
+### Adding Extensions
+
+establish a state machine  
+when adding an extension  
+it should notify extension about internal events  
+
+Transitions
+-----------
+
+### Executing Transition
+
+establish a state machine with transitions  
+when firing an event onto the state machine  
+it should execute transition by switching state  
+it should execute transition actions  
+it should pass parameters to transition action  
+it should execute exit action of source state  
+it should execute entry action of destination state  
+
+Custom Types
+------------
+
+### Custom Types For States And Events
+
+establish a state machine with custom types for states and events  
+when using the state machine  
+it should use equals to compare states and events  
+
+Active State Machines
+---------------------
+
+### Custom State Machine Name
+
+establish an instantiated active state machine with custom name  
+establish a state machine reporter  
+when the state machine report is generated  
+it should use custom name for state machine  
+
+### Priority Events Queueing
+
+establish an active state machine with transitions  
+when firing a priority event onto the state machine  
+it should queue event at the front  
+
+### Default State Machine Name
+
+establish an instantiated active state machine  
+establish a state machine reporter  
+when the state machine report is generated  
+it should use the type of the state machine as name for state machine  
+
+### Events Queueing
+
+establish an active state machine with transitions  
+when firing an event onto the state machine  
+it should queue event at the end  
+
+### Custom Factory
+
+establish a custom factory  
+when creating an active state machine  
+it should use custom factory to create internal instances  
+
+Persisting
+----------
+
+### Loading
+
+establish a saved state machine with history  
+when state machine is loaded  
+it should reset current state  
+it should reset all history states of super states  
+
+### Loading An Initialized State Machine
+
+establish an initialized state machine  
+when state machine is loaded  
+it should throw invalid operation exception  
+
+Exit Actions
+------------
+
+### Multiple Exit Actions
+
+establish a state machine with several exit actions on a state  
+when leaving the state  
+It should execute all exit actions  
+
+### Event Argument
+
+establish a state machine with an exit action taking an event argument  
+when leaving the state  
+it should pass event argument to exit action  
+
+### Exit Action With Parameter
+
+establish a state machine with exit action with parameter on a state  
+when leaving the state  
+it should execute the exit action  
+it should pass parameter to the exit action  
+
+### Exception Handling
+
+establish a state machine with several exit actions on a state and some of them throw an exception  
+when entering the state  
+it should execute all entry actions on entry  
+it should handle all exceptions of all throwing entry actions by firing the TransitionExceptionThrown event  
+
+### Exit Action
+
+establish a state machine with exit action on a state  
+when leaving the state  
+it should execute the exit action  
+
+Passive State Machines
+----------------------
+
+### Priority Events Queueing
+
+establish a passive state machine with transitions  
+when firing a priority event onto the state machine  
+it should queue event at the front  
+
+### Default State Machine Name
+
+establish an instantiated passive state machine  
+establish a state machine reporter  
+when the state machine report is generated  
+it should use the type of the state machine as name for state machine  
+
+### Custom State Machine Name
+
+establish an instantiated passive state machine with custom name  
+establish a state machine reporter  
+when the state machine report is generated  
+it should use custom name for state machine  
+
+### Custom Factory
+
+establish a custom factory  
+when creating a passive state machine  
+it should use custom factory to create internal instances  
+
+### Events Queueing
+
+establish a passive state machine with transitions  
+when firing an event onto the state machine  
+it should queue event at the end  
+
+Exception Handling
+------------------
+
+### Initialization Exception
+
+establish a entry action for the initial state that throws an exception  
+when initializing the state machine  
+should catch exception and fire transition exception event  
+should pass thrown exception to event arguments of transition exception event  
+
+### No Exception Handler Registered
+
+establish an exception throwing state machine without a registered exception handler  
+when an exception occurs  
+should (re-)throw exception  
+
+### Exit Action Exception
+
+establish an exit action throwing an exception  
+when executing the transition  
+should catch exception and fire transition exception event  
+should pass source state of failing transition to event arguments of transition exception event  
+should pass event id causing transition to event arguments of transition exception event  
+should pass thrown exception to event arguments of transition exception event  
+should pass event parameter to event argument of transition exception event  
+
+### Transition Action Exception
+
+establish a transition action throwing an exception  
+when executing the transition  
+should catch exception and fire transition exception event  
+should pass source state of failing transition to event arguments of transition exception event  
+should pass event id causing transition to event arguments of transition exception event  
+should pass thrown exception to event arguments of transition exception event  
+should pass event parameter to event argument of transition exception event  
+
+### Entry Action Exception
+
+establish an entry action throwing an exception  
+when executing the transition  
+should catch exception and fire transition exception event  
+should pass source state of failing transition to event arguments of transition exception event  
+should pass event id causing transition to event arguments of transition exception event  
+should pass thrown exception to event arguments of transition exception event  
+should pass event parameter to event argument of transition exception event  
+
+### Guard Exception
+
+establish a guard throwing an exception  
+when executing the transition  
+should catch exception and fire transition exception event  
+should pass source state of failing transition to event arguments of transition exception event  
+should pass event id causing transition to event arguments of transition exception event  
+should pass thrown exception to event arguments of transition exception event  
+should pass event parameter to event argument of transition exception event  

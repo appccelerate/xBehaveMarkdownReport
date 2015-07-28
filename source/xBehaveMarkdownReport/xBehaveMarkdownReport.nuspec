@@ -1,0 +1,21 @@
+﻿<?xml version="1.0"?>
+<package xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <metadata xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <id>xBehaveMarkdownReport</id>
+    <version>0.2.0</version>
+    <title>xBehaveMarkdownReport</title>
+    <authors>Urs Enzler</authors>
+    <owners>Urs Enzler</owners>
+    <licenseUrl>http://www.apache.org/licenses/LICENSE-2.0.html</licenseUrl>
+    <projectUrl>https://github.com/ursenzler/xbehavemarkdownreport</projectUrl>
+    <summary>Generates a markdown report from xBehave.net tests.</summary>
+    <description>Generates a markdown report from xBehave.net tests.</description>
+    <releaseNotes>
+    </releaseNotes>
+    <copyright>Copyright 2015</copyright>
+    <tags>xBehave.net report markdown HTML</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\*.*" target="tools" />
+  </files>  
+</package>

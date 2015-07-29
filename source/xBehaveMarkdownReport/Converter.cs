@@ -43,28 +43,40 @@ namespace XBehaveMarkdownReport
                 var collections = assembly.Descendants("collection");
                 foreach (var collection in collections)
                 {
-                    var collectionName = collection.Attribute("name")?.Value ?? string.Empty;
-                    collectionName = collectionName.Substring(collectionName.LastIndexOf('.') + 1);
-                    collectionName = collectionName.CamelToSpace();
-                    
-                    report.AppendLine();
-                    report.AppendLine(collectionName);
-                    report.AppendLine(new string('-', collectionName.Length));
-                    
-                    var tests = collection.Descendants("test").GroupBy(test => test.Attribute("method").Value);
-                    foreach (var testGroup in tests)
+                    //                    var collectionName = collection.Attribute("name")?.Value ?? string.Empty;
+                    //                    collectionName = collectionName.Substring(collectionName.LastIndexOf('.') + 1);
+                    //                    collectionName = collectionName.CamelToSpace();
+
+                    //                    report.AppendLine();
+                    //                    report.AppendLine(collectionName);
+                    //                    report.AppendLine(new string('-', collectionName.Length));
+                    //               
+                    var fixtures = collection.Descendants("test").GroupBy(test => test.Attribute("type").Value);
+                    foreach (var fixture in fixtures)
                     {
-                        report.AppendLine();
-                        report.AppendLine($"### {testGroup.Key.CamelToSpace()}");
-                        report.AppendLine();
+                        var fixtureName = fixture.Key;
+                        fixtureName = fixtureName.Substring(fixtureName.LastIndexOf('.') + 1);
+                        fixtureName = fixtureName.CamelToSpace();
 
-                        foreach (var test in testGroup)
+                        report.AppendLine();
+                        report.AppendLine(fixtureName);
+                        report.AppendLine(new string('-', fixtureName.Length));
+                        
+                        var tests = fixture.GroupBy(test => test.Attribute("method").Value);
+                        foreach (var testGroup in tests)
                         {
-                            var testName = test.Attribute("name")?.Value ?? string.Empty;
-                            testName = testName.Substring(testName.IndexOf(']') + 1).TrimStart();
-                            testName = testName.Replace("(Background) ", string.Empty);
+                            report.AppendLine();
+                            report.AppendLine($"### {testGroup.Key.CamelToSpace()}");
+                            report.AppendLine();
 
-                            report.AppendLine($"{testName}  ");
+                            foreach (var test in testGroup)
+                            {
+                                var testName = test.Attribute("name")?.Value ?? string.Empty;
+                                testName = testName.Substring(testName.IndexOf(']') + 1).TrimStart();
+                                testName = testName.Replace("(Background) ", string.Empty);
+
+                                report.AppendLine($"{testName}  ");
+                            }
                         }
                     }
                 }

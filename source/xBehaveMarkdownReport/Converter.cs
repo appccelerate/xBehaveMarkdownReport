@@ -1,6 +1,6 @@
 ﻿//-------------------------------------------------------------------------------
-// <copyright file="Converter.cs" company="Appccelerate">
-//   Copyright (c) 2008-2015
+// <copyright file="Converter.cs" company="Urs Enzler">
+//   Copyright (c) 2015-2015
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
 //   you may not use this file except in compliance with the License.
@@ -43,14 +43,6 @@ namespace XBehaveMarkdownReport
                 var collections = assembly.Descendants("collection");
                 foreach (var collection in collections)
                 {
-                    //                    var collectionName = collection.Attribute("name")?.Value ?? string.Empty;
-                    //                    collectionName = collectionName.Substring(collectionName.LastIndexOf('.') + 1);
-                    //                    collectionName = collectionName.CamelToSpace();
-
-                    //                    report.AppendLine();
-                    //                    report.AppendLine(collectionName);
-                    //                    report.AppendLine(new string('-', collectionName.Length));
-                    //               
                     var fixtures = collection.Descendants("test").GroupBy(test => test.Attribute("type").Value);
                     foreach (var fixture in fixtures)
                     {
@@ -83,26 +75,6 @@ namespace XBehaveMarkdownReport
             }
 
             return report.ToString();
-        }
-    }
-
-    public static class StringExtensions
-    {
-        public static string CamelToSpace(this string value)
-        {
-            var result = new StringBuilder();
-
-            foreach (var c in value)
-            {
-                if (char.IsUpper(c))
-                {
-                    result.Append(' ');
-                }
-
-                result.Append(c);
-            }
-
-            return result.Remove(0, 1).ToString();
         }
     }
 }

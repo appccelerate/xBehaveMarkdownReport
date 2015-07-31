@@ -67,7 +67,7 @@ namespace XBehaveMarkdownReport
                                 testName = testName.Substring(testName.IndexOf(']') + 1).TrimStart();
                                 testName = testName.Replace("(Background) ", string.Empty);
 
-                                report.AppendLine($"{testName}  ");
+                                report.AppendLine($"- {testName}");
                             }
                         }
                     }

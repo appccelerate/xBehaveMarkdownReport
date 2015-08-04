@@ -16,6 +16,8 @@
     <tags>xBehave.net report markdown HTML</tags>
   </metadata>
   <files>
-    <file src="bin\Release\*.*" target="tools" />
+    <file src="bin\Release\Appccelerate.CommandLineparser.dll" target="tools" />
+    <file src="bin\Release\Appccelerate.Fundamentals.dll" target="tools" />
+    <file src="bin\Release\xBehavemarkdownReport.exe" target="tools" />
   </files>  
 </package>

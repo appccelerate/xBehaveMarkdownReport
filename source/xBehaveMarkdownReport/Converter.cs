@@ -32,12 +32,13 @@ namespace XBehaveMarkdownReport
 
             foreach (var assembly in assemblies)
             {
-                var name = assembly.Attribute("name")?.Value ?? string.Empty;
+                var assemblyName = assembly.Attribute("name")?.Value ?? string.Empty;
+                assemblyName = assemblyName.Substring(assemblyName.LastIndexOf('\\') + 1);
 
-                name = name.Substring(name.LastIndexOf('\\') + 1);
+                var name = assemblyName;
                 name = name.Substring(0, name.LastIndexOf('.'));
 
-                report.AppendLine(name);
+                report.AppendLine(name.CamelToSpace());
                 report.AppendLine(new string('=', name.Length));
 
                 var collections = assembly.Descendants("collection");
@@ -47,7 +48,7 @@ namespace XBehaveMarkdownReport
                     foreach (var fixture in fixtures)
                     {
                         var fixtureName = fixture.Key;
-                        fixtureName = fixtureName.Substring(fixtureName.LastIndexOf('.') + 1);
+                        fixtureName = fixtureName.RemoveCommonPrefix(assemblyName);
                         fixtureName = fixtureName.CamelToSpace();
 
                         report.AppendLine();

@@ -10,6 +10,11 @@
 
             foreach (var c in value)
             {
+                if (c == '.')
+                {
+                    continue;
+                }
+
                 if (char.IsUpper(c))
                 {
                     result.Append(' ');
@@ -19,6 +24,20 @@
             }
 
             return result.Remove(0, 1).ToString();
+        }
+
+        public static string RemoveCommonPrefix(this string value, string compareWith)
+        {
+            int indexLastDot = 0;
+            for (int i = 0; i < value.Length && i < compareWith.Length&& value[i] == compareWith[i]; i++)
+            {
+                if (value[i] == '.')
+                {
+                    indexLastDot = i;
+                }
+            }
+
+            return value.Substring(indexLastDot);
         }
     }
 }

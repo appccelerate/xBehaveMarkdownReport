@@ -39,5 +39,13 @@
 
             return value.Substring(indexLastDot);
         }
+
+        public static string ExtractExampleFromTest(this string test)
+        {
+            int start = test.IndexOf('(') + 1;
+            int end = test.IndexOf(')', start);
+
+            return test.Substring(start, end - start);
+        }
     }
 }

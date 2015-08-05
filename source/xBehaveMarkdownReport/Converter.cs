@@ -60,15 +60,27 @@ namespace XBehaveMarkdownReport
                         {
                             report.AppendLine();
                             report.AppendLine($"### {testGroup.Key.CamelToSpace()}");
-                            report.AppendLine();
+                            
+                            var examples = testGroup.GroupBy(g => g.Attribute("name").Value.ExtractExampleFromTest());
 
-                            foreach (var test in testGroup)
+                            foreach (var example in examples)
                             {
-                                var testName = test.Attribute("name")?.Value ?? string.Empty;
-                                testName = testName.Substring(testName.IndexOf(']') + 1).TrimStart();
-                                testName = testName.Replace("(Background) ", string.Empty);
+                                report.AppendLine();
 
-                                report.AppendLine($"- {testName}");
+                                if (!string.IsNullOrWhiteSpace(example.Key))
+                                {
+                                    report.AppendLine($"#### {example.Key}");
+                                    report.AppendLine();
+                                }
+
+                                foreach (var test in example)
+                                {
+                                    var testName = test.Attribute("name")?.Value ?? string.Empty;
+                                    testName = testName.Substring(testName.IndexOf(']') + 1).TrimStart();
+                                    testName = testName.Replace("(Background) ", string.Empty);
+
+                                    report.AppendLine($"- {testName}");
+                                }
                             }
                         }
                     }

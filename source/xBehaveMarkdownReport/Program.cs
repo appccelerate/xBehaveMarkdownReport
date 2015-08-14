@@ -43,7 +43,11 @@ namespace XBehaveMarkdownReport
 
     public class Program
     {
-        public static void Main(string[] args)
+        private const int Ok = 0;
+        private const int InvalidFunction = 1;
+        private const int FileNotFound = 2;
+
+        public static int Main(string[] args)
         {
             string input = null;
             string output = null;
@@ -71,8 +75,13 @@ namespace XBehaveMarkdownReport
                 Console.WriteLine("options");
                 Console.WriteLine(usage.Options.IndentBy(4));
                 Console.WriteLine();
+                return InvalidFunction;
+            }
 
-                return;
+            if (!File.Exists(input))
+            {
+                Console.WriteLine("Input file '{0}' does not exist, please define an existing file.", input);
+                return FileNotFound;
             }
 
             var inputXml = XDocument.Load(input);
@@ -85,6 +94,8 @@ namespace XBehaveMarkdownReport
             {
                 writer.Write(outputMarkdown);
             }
-         }
+
+            return Ok;
+        }
     }
 }

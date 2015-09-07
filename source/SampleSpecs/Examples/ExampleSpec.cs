@@ -40,5 +40,16 @@
 
             "it should work"._(() => { });
         }
+
+        [Scenario]
+        [Example(new[] { "hello", "world" }, new[] { 17, 42 })]
+        public void ScenarioWithArrays(string[] words, int[] numbers)
+        {
+            $"establish {string.Join(", ", words)} as words"._(() => { });
+
+            $"when counting {string.Join(", ", numbers)}"._(() => { });
+
+            "it should work"._(() => { });
+        }
     }
 }

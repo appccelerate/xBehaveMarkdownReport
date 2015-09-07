@@ -20,10 +20,13 @@ namespace XBehaveMarkdownReport
 {
     using System.Linq;
     using System.Text;
+    using System.Text.RegularExpressions;
     using System.Xml.Linq;
 
     public class Converter
     {
+        private readonly Regex namePattern = new Regex(@"[\w\.]+\(.*\) \[[0-9]{2}\] (?<name>.*)", RegexOptions.Compiled);
+      
         public string Convert(XDocument input)
         {
             StringBuilder report = new StringBuilder();
@@ -54,13 +57,13 @@ namespace XBehaveMarkdownReport
                         report.AppendLine();
                         report.AppendLine(fixtureName);
                         report.AppendLine(new string('-', fixtureName.Length));
-                        
+
                         var tests = fixture.GroupBy(test => test.Attribute("method").Value);
                         foreach (var testGroup in tests)
                         {
                             report.AppendLine();
                             report.AppendLine($"### {testGroup.Key.CamelToSpace()}");
-                            
+
                             var examples = testGroup.GroupBy(g => g.Attribute("name").Value.ExtractExampleFromTest());
 
                             foreach (var example in examples)
@@ -76,10 +79,11 @@ namespace XBehaveMarkdownReport
                                 foreach (var test in example)
                                 {
                                     var testName = test.Attribute("name")?.Value ?? string.Empty;
-                                    testName = testName.Substring(testName.IndexOf(']') + 1).TrimStart();
-                                    testName = testName.Replace("(Background) ", string.Empty);
 
-                                    report.AppendLine($"- {testName}");
+                                    var match = this.namePattern.Match(testName);
+                                    var step = match.Groups["name"];
+
+                                    report.AppendLine($"- {step}");
                                 }
                             }
                         }

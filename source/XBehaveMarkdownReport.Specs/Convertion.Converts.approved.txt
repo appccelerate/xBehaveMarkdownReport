@@ -4,6 +4,14 @@
 Examples Example Spec
 ---------------------
 
+### Scenario With Arrays
+
+#### words: ["hello", "world"], numbers: [17, 42]
+
+- establish hello, world as words
+- when counting 17, 42
+- it should work
+
 ### Scenario With Examples
 
 #### word: "hello", number: 42

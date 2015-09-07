@@ -41,7 +41,10 @@ namespace XBehaveMarkdownReport.Specs
 <assemblies>
   <assembly name=""C:\projects\xBehaveMarkdownReport\source\SampleSpecs\bin\Debug\SampleSpecs.DLL"" environment=""64-bit .NET 4.0.30319.42000 [collection-per-class, parallel]"" test-framework=""xUnit.net 2.0.0.2929"" run-date=""2015-08-05"" run-time=""16:31:44"" config-file=""C:\temp\xunit.runner.console.2.0.0\tools\xunit.console.exe.Config"" total=""20"" passed=""20"" failed=""0"" skipped=""0"" time=""0.140"" errors=""0"">
     <errors />
-    <collection total=""12"" passed=""12"" failed=""0"" skipped=""0"" name=""Test collection for SampleSpecs.Examples.ExampleSpec"" time=""0.011"">
+    <collection total=""15"" passed=""15"" failed=""0"" skipped=""0"" name=""Test collection for SampleSpecs.Examples.ExampleSpec"" time=""0.013"">
+      <test name=""SampleSpecs.Examples.ExampleSpec.ScenarioWithArrays(words: [&quot;hello&quot;, &quot;world&quot;], numbers: [17, 42]) [01] establish hello, world as words"" type=""SampleSpecs.Examples.ExampleSpec"" method=""ScenarioWithArrays"" time=""0.0030742"" result=""Pass"" />
+      <test name=""SampleSpecs.Examples.ExampleSpec.ScenarioWithArrays(words: [&quot;hello&quot;, &quot;world&quot;], numbers: [17, 42]) [02] when counting 17, 42"" type=""SampleSpecs.Examples.ExampleSpec"" method=""ScenarioWithArrays"" time=""0.0000671"" result=""Pass"" />
+      <test name=""SampleSpecs.Examples.ExampleSpec.ScenarioWithArrays(words: [&quot;hello&quot;, &quot;world&quot;], numbers: [17, 42]) [03] it should work"" type=""SampleSpecs.Examples.ExampleSpec"" method=""ScenarioWithArrays"" time=""0.0000576"" result=""Pass"" />
       <test name=""SampleSpecs.Examples.ExampleSpec.ScenarioWithExamples(word: &quot;hello&quot;, number: 42) [01] establish hello as a word"" type=""SampleSpecs.Examples.ExampleSpec"" method=""ScenarioWithExamples"" time=""0.0026213"" result=""Pass"" />
       <test name=""SampleSpecs.Examples.ExampleSpec.ScenarioWithExamples(word: &quot;hello&quot;, number: 42) [02] when counting to 42"" type=""SampleSpecs.Examples.ExampleSpec"" method=""ScenarioWithExamples"" time=""0.0000905"" result=""Pass"" />
       <test name=""SampleSpecs.Examples.ExampleSpec.ScenarioWithExamples(word: &quot;hello&quot;, number: 42) [03] it should work"" type=""SampleSpecs.Examples.ExampleSpec"" method=""ScenarioWithExamples"" time=""0.0000763"" result=""Pass"" />

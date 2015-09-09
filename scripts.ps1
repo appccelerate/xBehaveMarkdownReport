@@ -1,0 +1,1 @@
+﻿Import-Module .\scripts.psm1 -DisableNameChecking

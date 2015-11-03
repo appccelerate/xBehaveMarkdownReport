@@ -19,18 +19,22 @@
 namespace XBehaveMarkdownReport
 {
     using System.Linq;
-    using System.Text;
     using System.Text.RegularExpressions;
     using System.Xml.Linq;
 
     public class Converter
     {
         private readonly Regex namePattern = new Regex(@"[\w\.]+\(.*\) \[[0-9]{2}\] (?<name>.*)", RegexOptions.Compiled);
-      
+
+        private readonly IMarkupWriter writer;
+
+        public Converter(IMarkupWriter writer)
+        {
+            this.writer = writer;
+        }
+
         public string Convert(XDocument input)
         {
-            StringBuilder report = new StringBuilder();
-
             var assemblies = input.Descendants("assembly");
 
             foreach (var assembly in assemblies)
@@ -41,9 +45,8 @@ namespace XBehaveMarkdownReport
                 var name = assemblyName;
                 name = name.Substring(0, name.LastIndexOf('.'));
 
-                report.AppendLine(name.CamelToSpace());
-                report.AppendLine(new string('=', name.Length));
-
+                this.writer.WriteTitle(name.CamelToSpace());
+                
                 var collections = assembly.Descendants("collection");
                 foreach (var collection in collections)
                 {
@@ -54,26 +57,24 @@ namespace XBehaveMarkdownReport
                         fixtureName = fixtureName.RemoveCommonPrefix(assemblyName);
                         fixtureName = fixtureName.CamelToSpace();
 
-                        report.AppendLine();
-                        report.AppendLine(fixtureName);
-                        report.AppendLine(new string('-', fixtureName.Length));
-
+                        this.writer.WriteFixture(fixtureName);
+                        
                         var tests = fixture.GroupBy(test => test.Attribute("method").Value);
                         foreach (var testGroup in tests)
                         {
-                            report.AppendLine();
-                            report.AppendLine($"### {testGroup.Key.CamelToSpace()}");
-
+                            this.writer.WriteScenario(testGroup.Key.CamelToSpace());
+                            
                             var examples = testGroup.GroupBy(g => g.Attribute("name").Value.ExtractExampleFromTest());
 
                             foreach (var example in examples)
                             {
-                                report.AppendLine();
-
                                 if (!string.IsNullOrWhiteSpace(example.Key))
                                 {
-                                    report.AppendLine($"#### {example.Key}");
-                                    report.AppendLine();
+                                    this.writer.WriteExample(example.Key);
+                                }
+                                else
+                                {
+                                    this.writer.WriteEmptyExample();
                                 }
 
                                 foreach (var test in example)
@@ -83,7 +84,7 @@ namespace XBehaveMarkdownReport
                                     var match = this.namePattern.Match(testName);
                                     var step = match.Groups["name"];
 
-                                    report.AppendLine($"- {step}");
+                                    this.writer.WriteStep(step.ToString());
                                 }
                             }
                         }
@@ -91,7 +92,7 @@ namespace XBehaveMarkdownReport
                 }
             }
 
-            return report.ToString();
+            return this.writer.GetReport();
         }
     }
 }

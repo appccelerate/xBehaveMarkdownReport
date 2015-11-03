@@ -1,5 +1,5 @@
-﻿//-------------------------------------------------------------------------------
-// <copyright file="AssemblyInfo.cs" company="Appccelerate">
+//-------------------------------------------------------------------------------
+// <copyright file="IMarkupWriter.cs" company="Appccelerate">
 //   Copyright (c) 2008-2015
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
@@ -16,12 +16,22 @@
 // </copyright>
 //-------------------------------------------------------------------------------
 
-using System.Reflection;
+namespace XBehaveMarkdownReport
+{
+    public interface IMarkupWriter
+    {
+        void WriteTitle(string title);
 
-// General Information about an assembly is controlled through the following 
-// set of attributes. Change these attribute values to modify the information
-// associated with an assembly.
-[assembly: AssemblyTitle("XBehaveMarkdownReport.Specs")]
-[assembly: AssemblyDescription("")]
+        string GetReport();
 
-[assembly: Xunit.CollectionBehavior(MaxParallelThreads = 1)]
+        void WriteFixture(string fixtureName);
+
+        void WriteScenario(string scenarioName);
+
+        void WriteExample(string example);
+
+        void WriteEmptyExample();
+
+        void WriteStep(string step);
+    }
+}

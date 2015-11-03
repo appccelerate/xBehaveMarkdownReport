@@ -1,0 +1,55 @@
+﻿====== Sample Specs ======
+
+===== Examples Example Spec =====
+
+==== Scenario With Arrays ====
+
+=== words: ["hello", "world"], numbers: [17, 42] ===
+
+  * establish hello, world as words
+  * when counting 17, 42
+  * it should work
+
+==== Scenario With Examples ====
+
+=== word: "hello", number: 42 ===
+
+  * establish hello as a word
+  * when counting to 42
+  * it should work
+
+=== word: "world", number: 17 ===
+
+  * establish world as a word
+  * when counting to 17
+  * it should work
+
+==== Scenario With Member Data ====
+
+=== word: "hello", number: 42 ===
+
+  * establish hello as a word
+  * when counting to 42
+  * it should work
+
+=== word: "world", number: 17 ===
+
+  * establish world as a word
+  * when counting to 17
+  * it should work
+
+===== Basic Specs =====
+
+==== This Is A Scenario ====
+
+  * establish something
+  * when doing something
+  * it should be this
+  * it should not be that
+
+==== This Is Another Scenario ====
+
+  * establish something
+  * when doing something
+  * it should be this
+  * it should not be that

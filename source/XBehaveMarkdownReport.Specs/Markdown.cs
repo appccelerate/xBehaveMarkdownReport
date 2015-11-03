@@ -1,5 +1,5 @@
 ﻿//-------------------------------------------------------------------------------
-// <copyright file="Convertion.cs" company="Appccelerate">
+// <copyright file="Markdown.cs" company="Appccelerate">
 //   Copyright (c) 2008-2015
 //
 //   Licensed under the Apache License, Version 2.0 (the "License");
@@ -24,12 +24,12 @@ namespace XBehaveMarkdownReport.Specs
 
     using Xunit;
 
-    public class Convertion
+    public class Markdown
     {
         [Fact]
         public void Converts()
         {
-            Converter converter = new Converter();
+            Converter converter = new Converter(new MarkdownWriter());
                 
             string result = converter.Convert(Input);
                 

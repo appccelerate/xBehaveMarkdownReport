@@ -1,5 +1,21 @@
 ﻿====== Sample Specs ======
 
+===== Basic Specs =====
+
+==== This Is A Scenario ====
+
+  * establish something
+  * when doing something
+  * it should be this
+  * it should not be that
+
+==== This Is Another Scenario ====
+
+  * establish something
+  * when doing something
+  * it should be this
+  * it should not be that
+
 ===== Examples Example Spec =====
 
 ==== Scenario With Arrays ====
@@ -37,19 +53,3 @@
   * establish world as a word
   * when counting to 17
   * it should work
-
-===== Basic Specs =====
-
-==== This Is A Scenario ====
-
-  * establish something
-  * when doing something
-  * it should be this
-  * it should not be that
-
-==== This Is Another Scenario ====
-
-  * establish something
-  * when doing something
-  * it should be this
-  * it should not be that

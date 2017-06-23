@@ -35,26 +35,29 @@ namespace XBehaveMarkdownReport
 
         public string Convert(XDocument input)
         {
-            var assemblies = input.Descendants("assembly");
+            var assemblies = input.Descendants("assembly").OrderBy(a => a.GetAssemblyName());
 
             foreach (var assembly in assemblies)
             {
-                var assemblyName = assembly.Attribute("name")?.Value ?? string.Empty;
-                assemblyName = assemblyName.Substring(assemblyName.LastIndexOf('\\') + 1);
-
-                var name = assemblyName;
+                var name = assembly.GetAssemblyName();
                 name = name.Substring(0, name.LastIndexOf('.'));
 
                 this.writer.WriteTitle(name.CamelToSpace());
-                
-                var collections = assembly.Descendants("collection");
+
+                var collections = assembly
+                    .Descendants("collection")
+                    .OrderBy(c => c.Attribute("name")?.Value ?? string.Empty)
+                    .ToList();
                 foreach (var collection in collections)
                 {
-                    var fixtures = collection.Descendants("test").GroupBy(test => test.Attribute("type").Value);
+                    var fixtures = collection
+                        .Descendants("test")
+                        .GroupBy(test => test.Attribute("type").Value)
+                        .OrderBy(f => f.Key);
                     foreach (var fixture in fixtures)
                     {
                         var fixtureName = fixture.Key;
-                        fixtureName = fixtureName.RemoveCommonPrefix(assemblyName);
+                        fixtureName = fixtureName.RemoveCommonPrefix(assembly.GetAssemblyName());
                         fixtureName = fixtureName.CamelToSpace();
 
                         this.writer.WriteFixture(fixtureName);
